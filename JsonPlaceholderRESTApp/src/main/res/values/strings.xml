@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JsonPlaceholder App</string>
+    <string name="retry">retry</string>
+    <string name="unknown_error">unknown error</string>
+</resources>
