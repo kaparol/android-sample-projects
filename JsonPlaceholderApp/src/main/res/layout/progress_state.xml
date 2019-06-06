@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="eu.jsonplaceholder.model.LoadStateObject"/>
+
+        <import type="eu.jsonplaceholder.model.LoadState"/>
+
+        <import type="eu.jsonplaceholder.ui.LoadCallback"/>
+
+        <variable
+                name="dataObject"
+                type="LoadStateObject"/>
+
+        <variable
+                name="callback"
+                type="eu.jsonplaceholder.ui.LoadCallback"/>
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="@dimen/progress_elevation"
+            app:cardUseCompatPadding="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/progress_padding"
+                app:visibleGone="@{dataObject.data == null}">
+
+            <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibleGone="@{dataObject.state == LoadState.LOADING}"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/error_msg"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@{dataObject.message ?? @string/unknown_error}"
+                    app:visibleGone="@{dataObject.state == LoadState.ERROR}"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/retry"
+                    android:id="@+id/retry"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:textAllCaps="true"
+                    android:layout_marginTop="@dimen/progress_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/error_msg"
+                    android:onClick="@{() -> callback.load()}"
+                    app:visibleGone="@{dataObject.state == LoadState.ERROR}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
+

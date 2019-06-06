@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JsonPlaceholder App</string>
+    <string name="retry">retry</string>
+    <string name="unknown_error">unknown error</string>
+    <string name="no_posts">No items</string>
+    <string name="posts_count">Posts count: %1$s</string>
+    <string name="comments_count">Comments: %1$s</string>
+
+</resources>

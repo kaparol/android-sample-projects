@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="androidx.lifecycle.LiveData"/>
+
+        <import type="eu.jsonplaceholder.model.Post"/>
+
+        <import type="eu.jsonplaceholder.model.LoadStateObject"/>
+
+        <import type="eu.jsonplaceholder.ui.LoadCallback"/>
+
+        <import type="java.util.List"/>
+
+        <variable
+                name="posts"
+                type="LiveData&lt;LoadStateObject&lt;List&lt;Post>>>"/>
+
+        <variable
+                name="callback"
+                type="LoadCallback"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:elevation="@dimen/toolbar_elevation"
+                android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:title="@string/app_name"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackgroundViews"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/posts_list"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layoutManager="LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibleGone="@{!posts.data.isEmpty()}"/>
+
+            <TextView
+                    android:id="@+id/empty_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/no_posts"
+                    app:visibleGone="@{posts.data.isEmpty()}"/>
+
+            <include
+                    layout="@layout/progress_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/progress_elevation"
+                    android:padding="@dimen/progress_margin"
+                    app:callback="@{() -> callback.load() }"
+                    app:dataObject="@{(LoadStateObject) posts}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

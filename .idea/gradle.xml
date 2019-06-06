@@ -8,7 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/JsonPlaceholderRESTApp" />
+            <option value="$PROJECT_DIR$/JsonPlaceholderApp" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

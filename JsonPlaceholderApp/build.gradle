@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        applicationId "eu.jsonplaceholder"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-utils/java"
+        test.java.srcDirs += "src/test-utils/java"
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.coroutines_core
+    implementation deps.kotlin.coroutines_android
+    implementation deps.support.app_compat
+    implementation deps.support.core_ktx
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+    implementation deps.support.design
+    implementation deps.lifecycle.extensions
+    implementation deps.constraint_layout
+    implementation deps.room.runtime
+    implementation deps.kotlin.stdlib
+
+
+
+    implementation deps.navigation.fragment_ktx
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.coroutines_adapter
+    implementation deps.okhttp_logging_interceptor
+    implementation deps.glide.runtime
+
+    kapt deps.lifecycle.compiler
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+    kapt deps.glide.compiler
+    kapt deps.room.compiler
+
+
+    testImplementation deps.junit
+    testImplementation deps.arch_core.testing
+    testImplementation deps.mockito.core
+    testImplementation deps.mock_web_server
+    testImplementation deps.kotlin.coroutines_test
+    testImplementation 'androidx.test:core:1.2.0'
+    testImplementation deps.robolectric
+
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.espresso.core
+}
+
+
