@@ -79,9 +79,9 @@ class PostsRepository @Inject constructor(
     fun loadCommentsByPost(postId: Long): LiveData<LoadStateObject<List<Comment>>> {
         return object : ResourceObject<List<Comment>>(dispatcherProvider) {
 
-            override fun loadFromCache() = commentDao.getAll()
+            override fun loadFromCache() = commentDao.getByPostId(postId)
 
-            override fun cacheResponse(users: List<Comment>) = commentDao.insert(users)
+            override fun cacheResponse(comments: List<Comment>) = commentDao.insert(comments)
 
             override fun createRequestAsync(): Deferred<Response<List<Comment>>> {
                 return jsonPlaceholderService.getCommentsAsync(postId)

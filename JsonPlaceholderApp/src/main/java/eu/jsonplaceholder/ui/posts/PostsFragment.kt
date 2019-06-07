@@ -24,13 +24,13 @@ class PostsFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var postsViewModel: PostsViewModel
+    private lateinit var postsViewModel: PostsViewModel
 
-    lateinit var adapter: PostsAdapter
+    private lateinit var adapter: PostsAdapter
 
     private lateinit var binding: PostsFragmentBinding
 
-    var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
+    private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
 
     override fun onCreateView(
@@ -60,7 +60,7 @@ class PostsFragment : Fragment(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = PostsAdapter(dataBindingComponent = dataBindingComponent) { post ->
-            navController().navigate(ShowDetailsDirection.showDetails(post.title,post.id))
+            navController().navigate(ShowDetailsDirection.showDetails(post.title, post.id))
         }
 
         this.adapter = adapter
@@ -81,10 +81,10 @@ class PostsFragment : Fragment(), Injectable {
         viewModel.posts.observe(viewLifecycleOwner, Observer { postsList ->
             postsList?.let {
                 adapter.submitList(it.data)
-            }?: adapter.submitList(emptyList())
+            } ?: adapter.submitList(emptyList())
         })
         viewModel.load()
     }
 
-    fun navController() = findNavController()
+    private fun navController() = findNavController()
 }

@@ -32,14 +32,9 @@ import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import retrofit2.Response
 import java.io.IOException
-import java.net.UnknownHostException
 
 @RunWith(RobolectricTestRunner::class)
 class PostRepositoryTest {
-
-    companion object{
-        private const val SERVICE_EXCEPTION_MESSAGE = "Something wrong happened"
-    }
 
     private lateinit var repository: PostsRepository
     private lateinit var postDao: PostDao
@@ -64,7 +59,7 @@ class PostRepositoryTest {
         userDao = database.userDao()
         commentDao = database.commentDao()
 
-        repository = PostsRepository(service, postDao, userDao, commentDao, TestDispatcherProvider(testDispatcher))
+        repository = PostsRepository(service, postDao, userDao, commentDao, TestDispatcherProvider())
         Dispatchers.setMain(testDispatcher)
     }
 
@@ -96,7 +91,6 @@ class PostRepositoryTest {
 
     @Test
     fun shouldReturnErrorBecauseOfServiceException() {
-        val userId = postId
         val dbPosts = MutableLiveData<List<Post>>()
 
         dbPosts.observeForever(mock())
@@ -113,7 +107,7 @@ class PostRepositoryTest {
     }
 
 
-    inline fun <reified T> mock(): T = mock(T::class.java)
+    private inline fun <reified T> mock(): T = mock(T::class.java)
 
-    fun <T> T.toDeferred() = GlobalScope.async { this@toDeferred }
+    private fun <T> T.toDeferred() = GlobalScope.async { this@toDeferred }
 }

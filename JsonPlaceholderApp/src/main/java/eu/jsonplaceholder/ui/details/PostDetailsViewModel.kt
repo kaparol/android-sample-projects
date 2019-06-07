@@ -29,7 +29,4 @@ class PostDetailsViewModel @Inject constructor(private val repository: PostsRepo
         }
     }
 
-    val users : LiveData<LoadStateObject<List<User>>> = Transformations.switchMap(postId){
-        repository.loadUsers()
-    }
 }

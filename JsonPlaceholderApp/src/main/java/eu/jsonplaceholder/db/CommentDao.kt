@@ -17,8 +17,8 @@ interface CommentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(comments: List<Comment>)
 
-    @Query("SELECT * FROM comment WHERE id = :id")
-    fun getById(id: Long): LiveData<Comment>
+    @Query("SELECT * FROM comment WHERE postId = :postId")
+    fun getByPostId(postId: Long): LiveData<List<Comment>>
 
     @Query("SELECT * FROM comment")
     fun getAll(): LiveData<List<Comment>>

@@ -10,5 +10,5 @@ data class Post(
     val title: String,
     val body: String
 ) {
-    fun getImageUrl(): String  =  "http://via.placeholder.com/500x250/${userId}96f.png/02${userId}"
+    fun getImageUrl(): String  =  "http://via.placeholder.com/500x250/${userId}96f.png/02$userId"
 }

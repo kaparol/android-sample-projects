@@ -89,7 +89,7 @@ class JsonPlaceholderServiceTest {
             assertThat(user!!.username,`is`("Bret"))
 
             assertThat(user.email,`is`("Sincere@april.biz"))
-            assertThat(user!!.company.name,`is`("Romaguera-Crona"))
+            assertThat(user.company.name,`is`("Romaguera-Crona"))
 
 
             val request = mockedServer.takeRequest()

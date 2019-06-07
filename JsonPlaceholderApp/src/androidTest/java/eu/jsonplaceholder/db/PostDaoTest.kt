@@ -47,7 +47,7 @@ class PostDaoTest : DbTest() {
 
 
         assertThat(loadedPosts.size, `is`(4))
-        assertThat(loadedPosts.map { post -> post.id }, `is`(listOf<Long>(postId, postId + 1, postId + 2, postId + 3)))
+        assertThat(loadedPosts.map { post -> post.id }, `is`(listOf(postId, postId + 1, postId + 2, postId + 3)))
     }
 }
 

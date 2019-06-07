@@ -33,7 +33,7 @@ class PostDetailsFragment : Fragment(), Injectable {
 
     private lateinit var binding: PostDetailsFragmentBinding
 
-    var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
+    private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +49,7 @@ class PostDetailsFragment : Fragment(), Injectable {
 
         dataBinding.callback = object : LoadCallback{
             override fun load() {
-                var postId = arguments?.getLong(POST_ID_KEY)
+                val postId = arguments?.getLong(POST_ID_KEY)
                 postDetailsViewModel.postId.value = postId
             }
         }
@@ -75,7 +75,7 @@ class PostDetailsFragment : Fragment(), Injectable {
         binding.post = postDetailsViewModel.post
         binding.comments = postDetailsViewModel.comments
 
-        var postId = arguments?.getLong(POST_ID_KEY)
+        val postId = arguments?.getLong(POST_ID_KEY)
         postDetailsViewModel.postId.value = postId
         initCommentsList(postDetailsViewModel)
     }
