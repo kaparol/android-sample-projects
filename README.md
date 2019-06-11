@@ -26,3 +26,6 @@ To keep up with all of this things You need good foundations. Good architecture 
 In case of lack enough time I focused on architecture. 
            
 And my app doesn't have awesome UI, custom animations and transitions between fragments. But is simple, tidy and friendly. 
+
+
+I have written some unit and integration tests and unfortunatelly I havent written any espresso tests yet. If I be able to make enough space in my weekly schedule, I will add them to my project. 
